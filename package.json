@@ -1,0 +1,24 @@
+{
+  "name": "engine-file-upload",
+  "version": "1.0.0",
+  "description": "Dropzone port for Engine.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:jillix/engine-file-upload.git"
+  },
+  "keywords": [
+    "jxEngine",
+    "file",
+    "upload"
+  ],
+  "author": "jillix <contact@jillix.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jillix/engine-file-upload/issues"
+  },
+  "homepage": "https://github.com/jillix/engine-file-upload"
+}
