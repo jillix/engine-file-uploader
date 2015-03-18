@@ -1,24 +1,25 @@
 {
-  "name": "engine-file-upload",
+  "name": "engine-file-uploader",
   "version": "1.0.0",
   "description": "Dropzone port for Engine.",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:jillix/engine-file-upload.git"
+    "url": "git@github.com:jillix/engine-file-uploader.git"
   },
   "keywords": [
     "jxEngine",
     "file",
-    "upload"
+    "uploader"
   ],
   "components": {
       "scripts": [
         "client/main.js",
-        "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js"
+        "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js",
+        "/jquery.js"
       ],
       "styles": [
         "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css"
@@ -27,7 +28,7 @@
   "author": "jillix <contact@jillix.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jillix/engine-file-upload/issues"
+    "url": "https://github.com/jillix/engine-file-uploader/issues"
   },
-  "homepage": "https://github.com/jillix/engine-file-upload"
+  "homepage": "https://github.com/jillix/engine-file-uploader"
 }
