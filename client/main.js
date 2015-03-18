@@ -1,5 +1,9 @@
 var $ = require("/jquery");
 
+exports.setProject = function (_, data) {
+    this.link("setProject").send(null, data);
+};
+
 exports.init = function () {
     var config = this._config;
 
@@ -7,11 +11,9 @@ exports.init = function () {
     var $previews = $(config.ui.previews);
     var $clickable = $(config.ui.clickable);
 
-    var url = config.url;
-
     this.dz = new Dropzone($zone.get(0), {
-        url: url || "/",
-//        previewsContainer: $previews.get(0),
+        url: ["/@", this._name, "upload"].join("/"),
+        previewsContainer: $previews.get(0),
         clickable: $clickable.get(0)
     });
 
