@@ -16,19 +16,23 @@
     "uploader"
   ],
   "components": {
-      "scripts": [
-        "client/main.js",
-        "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js",
-        "/jquery.js"
-      ],
-      "styles": [
-        "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css"
-      ]
+    "scripts": [
+      "client/main.js",
+      "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js",
+      "/jquery.js"
+    ],
+    "styles": [
+      "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css"
+    ]
   },
   "author": "jillix <contact@jillix.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jillix/engine-file-uploader/issues"
   },
-  "homepage": "https://github.com/jillix/engine-file-uploader"
+  "homepage": "https://github.com/jillix/engine-file-uploader",
+  "dependencies": {
+    "formidable": "^1.0.17"
+  },
+  "devDependencies": {}
 }
