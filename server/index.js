@@ -10,11 +10,11 @@ exports.upload = function (stream) {
     var self = this;
 
     // check if module was configured correctly
-    if (!self._config.uploadDir) {
+    if (!self._config.upload_dir) {
         return stream.end(400, "The upload directory was not configured");
     }
 
-    var uploadDir = engine.repo + self._config.uploadDir;
+    var uploadDir = engine.repo + self._config.upload_dir;
     var form = new Formidable.IncomingForm({
         uploadDir: uploadDir
     });
@@ -42,14 +42,14 @@ exports.setProject = function (stream) {
     stream.data(function (data) {
 
         // check if module was configured correctly
-        if (!self._config.uploadDir) {
+        if (!self._config.upload_dir) {
             return stream.write("The upload directory was not configured");
         }
 
         // validate data
         if (!data || !data.project) { return link.end(new Error("Missing the project value.")); }
 
-        self.upload_dir = Path.normalize(SERVICE_PROJECTS + "/" + data.project + self._config.uploadDir);
+        self.upload_dir = Path.normalize(SERVICE_PROJECTS + "/" + data.project + self._config.upload_dir);
         link.end(null, null);
     });
 };
