@@ -4,66 +4,52 @@ var Path = require("path")
   , Fs = require("fs")
   ;
 
-// Constants
-const FLOW_LINKS = {
-    UPLOAD: {
-        IN: "upload",
-        OUT: "upload"
-    },
-    SET_PROJECT: {
-        IN: "setProject",
-        OUT: "setProject"
+const SERVICE_PROJECTS = process.env.ENGINE_APPS || Ul.home() + "/engine_repos";
+
+exports.upload = function (stream) {
+    var self = this;
+
+    // check if module was configured correctly
+    if (!self._config.uploadDir) {
+        return stream.end(400, "The upload directory was not configured");
     }
-};
 
-exports.init = function () {
-    var self = this;
-    Object.keys(FLOW_LINKS).forEach(function (c) {
-        self._access[FLOW_LINKS[c].IN] = true;
-        self.on(FLOW_LINKS[c].IN, engine.flow(self, [{
-            call: FLOW_LINKS[c].OUT
-        }]));
+    var uploadDir = engine.repo + self._config.uploadDir;
+    var form = new Formidable.IncomingForm({
+        uploadDir: uploadDir
     });
-    self.upload_dir = engine.repo + self._config.upload_dir;
-};
 
-exports[FLOW_LINKS.UPLOAD.OUT] = function (link) {
-
-    var self = this;
-    var form = new Formidable.IncomingForm(
-        { uploadDir: self.upload_dir }
-    );
-
-    form.parse(link.req, function (err, fields, files) {
+    // parse the request
+    form.parse(stream.context.req, function (err, fields, files) {
 
         if (!files.file) {
-            return link.end(new Error("File is missing."));
+            return stream.write("File is missing");
         }
 
-        Fs.rename(files.file.path, self.upload_dir + "/" + files.file.name, function (err) {
+        Fs.rename(files.file.path, uploadDir + "/" + files.file.name, function (err) {
 
             if (err) {
-                return link.end(err);
+                return stream.write(err);
             }
 
-            link.end(200, files.file.name);
+            stream.end(200, {"content-type": "text/plain"});
         });
     });
 };
 
-exports[FLOW_LINKS.SET_PROJECT.OUT] = function (link) {
+exports.setProject = function (stream) {
     var self = this;
-    link.data(function (err, data) {
-        if (err) {
-            return link.end(err);
-        }
-        if (typeof jxService === "undefined") {
-            return link.end(new Error("This function is only available for jxService"));
+    stream.data(function (data) {
+
+        // check if module was configured correctly
+        if (!self._config.uploadDir) {
+            return stream.write("The upload directory was not configured");
         }
 
-        if (!data.project) { return link.end(new Error("Missing the project value.")); }
+        // validate data
+        if (!data || !data.project) { return link.end(new Error("Missing the project value.")); }
 
-        self.upload_dir = Path.normalize(jxService.paths.projects + "/" + data.project + self._config.upload_dir);
+        self.upload_dir = Path.normalize(SERVICE_PROJECTS + "/" + data.project + self._config.uploadDir);
         link.end(null, null);
     });
 };
