@@ -15,15 +15,38 @@
     "file",
     "uploader"
   ],
-  "components": {
-    "scripts": [
-      "client/main.js",
-      "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.js",
-      "/jquery.js"
+  "composition": {
+    "public": "public",
+    "flow": [
+      [
+        "upload",
+        "upload"
+      ],
+      [
+        "setProject",
+        "setProject"
+      ]
     ],
-    "styles": [
-      "//cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/min/dropzone.min.css"
-    ]
+    "client": {
+      "module": [
+        "client/main.js",
+        "client/libs/dropzone.js",
+        "/jquery.js"
+      ],
+      "flow": [
+        [
+          "upload",
+          ["flow", "@upload"]
+        ],
+        [
+          "setProject",
+          ["flow", "@setProject"]
+        ]
+      ],
+      "styles": [
+        "public/css/dropzone.css"
+      ]
+    }
   },
   "author": "jillix <contact@jillix.com>",
   "license": "MIT",
